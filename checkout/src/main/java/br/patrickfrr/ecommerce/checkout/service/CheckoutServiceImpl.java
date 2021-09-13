@@ -3,10 +3,16 @@ package br.patrickfrr.ecommerce.checkout.service;
 import br.patrickfrr.ecommerce.checkout.entity.CheckoutEntity;
 import br.patrickfrr.ecommerce.checkout.repository.CheckoutRepository;
 import br.patrickfrr.ecommerce.checkout.resource.checkout.CheckoutRequest;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
+@RequiredArgsConstructor
+@Slf4j
 public class CheckoutServiceImpl { private final CheckoutRepository checkoutRepository;
     private final CheckoutCreatedSource checkoutCreatedSource;
     private final UUIDUtil uuidUtil;
