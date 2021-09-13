@@ -1,0 +1,15 @@
+{
+  "type": "record",
+  "name": "CheckoutCreateEvent",
+  "namespace": "com.patrickfrr.ecommerce.checkout.event",
+  "fields": [
+    {
+      "name": "checkoutCode",
+      "type": ["string"]
+    },
+    {
+      "name": "status",
+      "type": ["string"]
+    }
+  ]
+}

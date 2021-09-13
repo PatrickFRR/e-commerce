@@ -1,4 +1,5 @@
 plugins {
+	id 'com.github.davidmc24.gradle.plugin.avro' version '1.0.0'
 	id 'org.springframework.boot' version '2.5.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
@@ -14,16 +15,35 @@ repositories {
 
 ext {
 	set('springCloudVersion', "2020.0.3")
+	set('cucumberVersion', '6.6.0')
+	set('testContainersVersion', '1.14.3')
+	set('wireMockVersion', '2.27.2')
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.apache.kafka:kafka-streams'
+	implementation 'org.springframework.data:spring-data-envers'
 	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
 	implementation 'org.springframework.cloud:spring-cloud-stream'
 	implementation 'org.springframework.cloud:spring-cloud-stream-binder-kafka-streams'
+	runtimeOnly 'org.postgresql:postgresql'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.cloud:spring-cloud-stream-test-support'
+	testImplementation "io.cucumber:cucumber-spring:${cucumberVersion}"
+	testImplementation "io.cucumber:cucumber-java:${cucumberVersion}"
+	testImplementation "io.cucumber:cucumber-junit:${cucumberVersion}"
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+	testImplementation "org.testcontainers:testcontainers:${testContainersVersion}"
+	testImplementation "org.testcontainers:kafka:${testContainersVersion}"
+	testImplementation "org.testcontainers:postgresql:${testContainersVersion}"
+	testImplementation "com.github.tomakehurst:wiremock:${wireMockVersion}"
+	testImplementation "org.springframework.cloud:spring-cloud-contract-wiremock"
 }
+
 
 dependencyManagement {
 	imports {
@@ -34,3 +54,16 @@ dependencyManagement {
 test {
 	useJUnitPlatform()
 }
+
+avro {
+	fieldVisibility = "PRIVATE"
+}
+
+generateAvroJava {
+	source 'src/main/resources/avro'
+}
+
+generateTestAvroJava {
+	source 'src/main/resources/avro'
+}
+
