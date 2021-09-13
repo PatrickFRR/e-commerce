@@ -1,9 +1,11 @@
 package br.patrickfrr.ecommerce.checkout.service;
 
 import br.patrickfrr.ecommerce.checkout.entity.CheckoutEntity;
+import br.patrickfrr.ecommerce.checkout.repository.CheckoutRepository;
 import br.patrickfrr.ecommerce.checkout.resource.checkout.CheckoutRequest;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class CheckoutServiceImpl { private final CheckoutRepository checkoutRepository;
     private final CheckoutCreatedSource checkoutCreatedSource;
