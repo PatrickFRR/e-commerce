@@ -30,7 +30,7 @@ public class ShippingEntity {
     private String complement;
 
     @Column
-    private String Country;
+    private String country;
 
     @Column
     private String state;

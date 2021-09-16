@@ -9,6 +9,12 @@ group = 'br.patrickfrr.ecommerce'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
 repositories {
 	mavenCentral()
 }
@@ -22,8 +28,14 @@ ext {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.apache.kafka:kafka-streams'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.data:spring-data-envers'
+	implementation 'org.apache.kafka:kafka-streams'
+	implementation 'org.apache.avro:avro:1.10.2'
+	implementation 'dom4j:dom4j:1.6.1'
+	implementation 'javax.persistence:javax.persistence-api:2.2'
+	compileOnly 'javax.persistence:com.springsource.javax.persistence:2.0.0'
+	implementation 'org.hibernate:hibernate-core:5.5.7.Final'
 	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
 	implementation 'org.springframework.cloud:spring-cloud-stream'
 	implementation 'org.springframework.cloud:spring-cloud-stream-binder-kafka-streams'
@@ -32,15 +44,15 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.cloud:spring-cloud-stream-test-support'
-	testImplementation "io.cucumber:cucumber-spring:6.11.0"
-	testImplementation "io.cucumber:cucumber-java:6.11.0"
-	testImplementation "io.cucumber:cucumber-junit:6.11.0"
+	testImplementation "io.cucumber:cucumber-spring:${cucumberVersion}"
+	testImplementation "io.cucumber:cucumber-java:${cucumberVersion}"
+	testImplementation "io.cucumber:cucumber-junit:${cucumberVersion}"
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
-	testImplementation "org.testcontainers:testcontainers:1.16.0"
-	testImplementation "org.testcontainers:kafka:1.16.0"
-	testImplementation "org.testcontainers:postgresql:1.16.0"
-	testImplementation "com.github.tomakehurst:wiremock:2.27.2"
+	testImplementation "org.testcontainers:testcontainers:${testContainersVersion}"
+	testImplementation "org.testcontainers:kafka:${testContainersVersion}"
+	testImplementation "org.testcontainers:postgresql:${testContainersVersion}"
+	testImplementation "com.github.tomakehurst:wiremock:${wireMockVersion}"
 	testImplementation "org.springframework.cloud:spring-cloud-contract-wiremock"
 }
 

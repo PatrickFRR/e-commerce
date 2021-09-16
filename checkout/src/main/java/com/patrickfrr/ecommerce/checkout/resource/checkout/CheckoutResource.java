@@ -19,7 +19,7 @@ public class CheckoutResource {
 
     @PostMapping("/")
     public ResponseEntity<CheckoutResponse> create(@RequestBody CheckoutRequest checkoutRequest) {
-        final CheckoutEntity checkoutEntity = checkoutService.create(checkoutRequest).orElseTrow();
+        final CheckoutEntity checkoutEntity = checkoutService.create(checkoutRequest).orElseThrow();
         final CheckoutResponse checkoutResponse = CheckoutResponse.builder()
                 .code(checkoutEntity.getCode())
                 .build();

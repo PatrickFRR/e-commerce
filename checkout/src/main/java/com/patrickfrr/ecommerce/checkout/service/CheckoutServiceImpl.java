@@ -3,6 +3,7 @@ package com.patrickfrr.ecommerce.checkout.service;
 import com.patrickfrr.ecommerce.checkout.entity.CheckoutEntity;
 import com.patrickfrr.ecommerce.checkout.entity.CheckoutItemEntity;
 import com.patrickfrr.ecommerce.checkout.entity.ShippingEntity;
+import com.patrickfrr.ecommerce.checkout.event.CheckoutCreateEvent;
 import com.patrickfrr.ecommerce.checkout.repository.CheckoutRepository;
 import com.patrickfrr.ecommerce.checkout.resource.checkout.CheckoutRequest;
 import com.patrickfrr.ecommerce.checkout.streaming.CheckoutCreatedSource;
@@ -18,12 +19,14 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CheckoutServiceImpl { private final CheckoutRepository checkoutRepository;
+public class CheckoutServiceImpl implements CheckoutService {
+
+    private final CheckoutRepository checkoutRepository;
     private final CheckoutCreatedSource checkoutCreatedSource;
     private final UUIDUtil uuidUtil;
 
     @Override
-    public Optional<CheckoutEntity> create(CheckoutRequest checkoutRequest) {
+    public Optional <CheckoutEntity> create (CheckoutRequest checkoutRequest) {
         log.info("M=create, checkoutRequest={}", checkoutRequest);
         final CheckoutEntity checkoutEntity = CheckoutEntity.builder()
                 .code(uuidUtil.createUUID().toString())
@@ -46,7 +49,7 @@ public class CheckoutServiceImpl { private final CheckoutRepository checkoutRepo
                         .build())
                 .collect(Collectors.toList()));
         final CheckoutEntity entity = checkoutRepository.save(checkoutEntity);
-        final CheckoutCreatedEvent checkoutCreatedEvent = CheckoutCreatedEvent.newBuilder()
+        final CheckoutCreateEvent checkoutCreatedEvent = CheckoutCreateEvent.newBuilder()
                 .setCheckoutCode(entity.getCode())
                 .setStatus(entity.getStatus().name())
                 .build();
